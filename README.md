@@ -29,7 +29,8 @@ On client machine: start the client and specify:
 * -h  : server host name
 * -nr : number of round trips
 * -ps : size of each data transfer in bytes
-* -st : time between each data transfer on client side
+* -st : time between each data transfer on client side.
+
 For example:
 
 ```
@@ -62,7 +63,9 @@ kernel CPU time     : 1.733488 s
 
 # Limitations
 RTT can only be used to test single connection between a client machine and a server machine.
-The server does not support multiple clients and it does not reject multiple clients.
-You cannot run multiple server becuase the server log file is hardcoded.
+
+The server does not support multiple clients(but it does not reject multiple clients).
+
+You cannot run multiple servers because the server log file is hardcoded.
 # License
 License used is GPL.
