@@ -2,21 +2,22 @@
 *
 * client.c
 *
-* 16.08.2015 PF created
-* 23.08.2015 PF added -p <port> -h <host>
-* 23.08.2014 PF addded -nr <number of round trips> -ps <size of data>
-* 20.09.2015 PF added time measurement
-* 20.09.2013 PF added sleep option: -st
-* 27.09.2015 PF ms can be set to 0
-* 27.09.2015 PF addded getrusage
-* 25.10.2015 PF added macros for buffer
-* 25.10.2015 PF compute number if static array items in fmsg
-* 25.10.2015 PF added free for malloc
-* 25.10.2015 PF moved code form main to check_args
-* 25.10.2015 PF renamed sigh to sighadler and added all signails
-* 25.10.2015 PF getaddrinfo full use (using man 3 getaddrinfo code)
-* 25.10.2015 PF moved code from main to socket_and_connect
-* 25.10.2015 PF moved code from main to send_round_trip_num_and_data_size
+* round trip test client: to test network bandwidth and speed
+* 
+* Copyright (C) 2017 Pierre Forstmann 
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *------------------------------------------------------------------------
 */
 

@@ -1,24 +1,32 @@
 /*
 *
 * server.c
-* 16.08.2015 PF created
-* 23.08.2015 PF added arguments -p <port_number>
-* 23.08.2015 PF added round-trip loop
-* 27.09.2015 PF added sever loop
-* 04.10.2015 PF added log file
-* 11.10.2015 PF daemonize
-* 18.10.2015 PF added signal handling
-* 25.10.2015 PF added macros for buffers
-* 25.10.2015 PF addded free call + malloc return test
 *
-*------------------------------------------------------------
+* round trip test server: to test network bandwidth and speed
+*  
+* Copyright (C) 2017 Pierre Forstmann 
+* 
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*----------------------------------------------------------------------
 */
 
 /* to avoid following gcc errors with -std=c90 or -std=c99
- *  * "storage size isn't known" for struct timespec
- *   * "storage_size isn't known" for struct sigaction
- *    * "dereferencing pointer to incomplete type" for addrinfo pointer
- *    */
+ * "storage size isn't known" for struct timespec
+ * "storage_size isn't known" for struct sigaction
+ * "dereferencing pointer to incomplete type" for addrinfo pointer
+ * 
+*/
 #if __STDC_VERSION__ >= 199901L
 #define _XOPEN_SOURCE 600
 #else
