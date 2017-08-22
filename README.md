@@ -14,14 +14,15 @@ You need to install RTT on client and server machines.
 # Usage
 On server machine, start the server giving as unique argument the TCP/IP port number:
 
-`$ ./server -p 2000
+```
+$ ./server -p 2000
 $ cat /tmp/server.log
 Tue Aug 22 14:03:02 2017 argv nr 0 = ./server
 Tue Aug 22 14:03:02 2017 argv nr 1 = -p 
 Tue Aug 22 14:03:02 2017 argv nr 2 = 2000 
 Tue Aug 22 14:03:02 2017 server: pid = 11784 
 Tue Aug 22 14:03:02 2017 waiting for new connection ...
-`
+```
 
 On client machine: start the client and specify:
 * -p  : server port number
@@ -31,7 +32,8 @@ On client machine: start the client and specify:
 * -st : time between each data transfer on client side
 For example:
 
-`$ ./client -p 2000 -h localhost -nr 1000 -ps 10000000 -st 0
+```
+$ ./client -p 2000 -h localhost -nr 1000 -ps 10000000 -st 0
 0: argv = ./client 
 1: argv = -p 
 2: argv = 2000 
@@ -56,7 +58,7 @@ req. sleeping time  : 0 s
 elapsed time        : 1.730000 s 
 user CPU time       : 0.43987 s 
 kernel CPU time     : 1.733488 s 
-`
+```
 
 # Limitations
 RTT can only be used to test single connection between a client machine and a server machine.
