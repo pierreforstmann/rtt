@@ -19,11 +19,26 @@
 * 25.10.2015 PF moved code from main to send_round_trip_num_and_data_size
 *------------------------------------------------------------------------
 */
+
+/* to avoid following gcc errors with -std=c90 or -std=c99
+ * "storage size isn't known" for struct timespec 
+ * "storage_size isn't known" for struct sigaction
+ * "dereferencing pointer to incomplete type" for addrinfo pointer
+*/ 
+#if __STDC_VERSION__ >= 199901L
+#define _XOPEN_SOURCE 600
+#else
+define _XOPEN_SOURCE 500
+#endif /* __STDC_VERSION__ */
+
+/* to avoid warnings with -std=C99 for strsignal */
+/* because  #define __USE_XOPEN2K8	1 fails */
+extern char *strsignal (int __sig);
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
 #include <sys/socket.h>
 #include <signal.h>
 #include <fcntl.h>
@@ -53,7 +68,7 @@ int g_cur_rtn = 0;
 
 void set_cur_rtn(int cur_rtn)
 {
-        g_cur_rtn++;
+        g_cur_rtn = cur_rtn;
 }
 
 int get_cur_rtn()
@@ -260,7 +275,6 @@ char *alloc_data(long data_size)
 int main(int argc, char*argv[])
 {
         int client_socket;
-        long server_port;
         int i;
         struct addrinfo hints, *s_addr;
         int rc, rc2;
@@ -285,7 +299,6 @@ int main(int argc, char*argv[])
 
         check_args(argc, argv, &args_s);
 
-        server_port = args_s.server_port;
         s_addr = args_s.result;
         num_rt = args_s.num_rt;
         data_size = args_s.data_size;

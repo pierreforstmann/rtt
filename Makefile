@@ -9,9 +9,9 @@ clean:
 	rm client server
 #
 client: 
-	$(CC) $(CFLAGS) client.c
+	$(CC) -o client $(CFLAGS) client.c
 #
 server:
-	$(CC) $CFLAGS) server.c
+	$(CC) -o server $(CFLAGS) server.c
 #
 all:	client server

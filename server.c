@@ -13,19 +13,33 @@
 *
 *------------------------------------------------------------
 */
+
+/* to avoid following gcc errors with -std=c90 or -std=c99
+ *  * "storage size isn't known" for struct timespec
+ *   * "storage_size isn't known" for struct sigaction
+ *    * "dereferencing pointer to incomplete type" for addrinfo pointer
+ *    */
+#if __STDC_VERSION__ >= 199901L
+#define _XOPEN_SOURCE 600
+#else
+define _XOPEN_SOURCE 500
+#endif /* __STDC_VERSION__ */
+
+/* to avoid warnings with -std=C99 for strsignal */
+/* because  #define __USE_XOPEN2K8      1 fails */
+extern char *strsignal (int __sig);
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
-
 #include <sys/socket.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <netinet/in.h>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -302,7 +316,8 @@ int daemonize(int argc, char* argv[])
 {
         int rc;
         int pid;
-        int i;
+        int fd;
+	int maxfd;
 
         pid = fork();
         if (pid < 0 )
@@ -325,8 +340,11 @@ int daemonize(int argc, char* argv[])
         if ( pid > 0 )
                 return 0;
 
-        for (i =  getdtablesize(); i > 0 ; i--)
-                close(i);
+	/* not a good way to close all open file descriptors ? */
+	maxfd=sysconf(_SC_OPEN_MAX);
+	for(fd=0; fd<maxfd; fd++)
+    		close(fd);
+
         umask(022);
         chdir("/tmp");
 
